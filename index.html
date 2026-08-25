@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowTR</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- Open Graph Meta Tags for Social Media Preview -->
+    <meta property="og:title" content="ShadowTR">
+    <meta property="og:description" content="Experience the ultimate anime adventure on Trimz.tv">
+    <meta property="og:image" content="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg">
+    <meta property="og:url" content="https://trimz.tv/u/sht">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="1000">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ShadowTR">
+    <meta name="twitter:description" content="Experience the ultimate anime adventure on Trimz.tv">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 50%, #0d0d1f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.15) 0%, transparent 50%);
+            animation: shift 15s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes shift {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(30px, 30px);
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+        
+        /* Poster Section */
+        .poster-section {
+            flex: 0 1 320px;
+            animation: slideInLeft 0.8s ease-out;
+        }
+        
+        .poster-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .poster {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 
+                0 0 40px rgba(0, 255, 255, 0.4),
+                0 0 80px rgba(255, 0, 128, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            display: block;
+        }
+        
+        .poster:hover {
+            transform: scale(1.08) translateY(-10px);
+            box-shadow: 
+                0 0 60px rgba(0, 255, 255, 0.8),
+                0 0 120px rgba(255, 0, 128, 0.6),
+                0 30px 80px rgba(0, 0, 0, 0.9);
+            border-color: rgba(0, 255, 255, 0.8);
+        }
+        
+        /* Content Section */
+        .content-section {
+            flex: 1;
+            min-width: 280px;
+            animation: slideInRight 0.8s ease-out;
+        }
+        
+        h1 {
+            color: #00ffff;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.8),
+                0 0 40px rgba(255, 0, 128, 0.5),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .title-accent {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .divider {
+            height: 3px;
+            width: 80px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            margin: 20px 0;
+            border-radius: 2px;
+            animation: expandWidth 0.8s ease-out 0.3s both;
+        }
+        
+        .subtitle {
+            color: #b0b0ff;
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            font-weight: 300;
+        }
+        
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+        
+        .feature {
+            color: #d0d0ff;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature::before {
+            content: '▸';
+            color: #00ffff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #00ffff 0%, #00ccff 100%);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.6),
+                0 0 60px rgba(0, 200, 255, 0.3),
+                0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 255, 0.8),
+                0 0 100px rgba(0, 200, 255, 0.5),
+                0 15px 40px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+        }
+        
+        .cta-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes expandWidth {
+            from {
+                opacity: 0;
+                width: 0;
+            }
+            to {
+                opacity: 1;
+                width: 80px;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .poster-section {
+                flex: 0 1 300px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                gap: 20px;
+            }
+            
+            .poster-section {
+                flex: 0 1 250px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                letter-spacing: 1px;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .feature {
+                font-size: 0.9em;
+            }
+            
+            .cta-button {
+                padding: 16px 40px;
+                font-size: 1em;
+            }
+            
+            .divider {
+                width: 60px;
+            }
+        }
+        
+        /* Loading State */
+        .loading {
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Poster Section -->
+        <div class="poster-section">
+            <div class="poster-wrapper">
+                <img src="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg" alt="ShadowTR" class="poster">
+            </div>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="content-section">
+            <h1><span class="title-accent">Shadow</span><br>TR</h1>
+            
+            <div class="divider"></div>
+            
+            <p class="subtitle">
+                Experience an epic anime adventure. A story of power, mystery, and destiny in a neon-lit future.
+            </p>
+            
+            <div class="features">
+                <div class="feature">Stunning visuals and world-building</div>
+                <div class="feature">Deep character development and compelling storyline</div>
+                <div class="feature">High-octane action scenes and emotional depth</div>
+            </div>
+            
+            <a href="https://trimz.tv/u/sht" class="cta-button" id="watchBtn">Watch Now on Trimz.tv</a>
+        </div>
+    </div>
+    
+    <script>
+        // Enhanced Analytics Tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track page view (Google Analytics handles this automatically)
+            
+            // Track button click
+            const watchBtn = document.getElementById('watchBtn');
+            if (watchBtn) {
+                watchBtn.addEventListener('click', function() {
+                    // Send event to Google Analytics
+                    gtag('event', 'click', {
+                        'event_category': 'engagement',
+                        'event_label': 'watch_now_button',
+                        'value': 1
+                    });
+                    console.log('Watch Now button clicked - tracked in Google Analytics');
+                });
+            }
+            
+            // Track poster interaction
+            const poster = document.querySelector('.poster');
+            if (poster) {
+                poster.addEventListener('click', function() {
+                    gtag('event', 'click', {
+                        'event_category': 'engagement',
+                        'event_label': 'poster_clicked',
+                        'value': 1
+                    });
+                });
+                
+                poster.addEventListener('mouseover', function() {
+                    gtag('event', 'engagement', {
+                        'event_category': 'interaction',
+                        'event_label': 'poster_hover',
+                        'value': 1
+                    });
+                });
+            }
+            
+            // Track page scroll depth
+            let scrollTracked = {
+                25: false,
+                50: false,
+                75: false,
+                100: false
+            };
+            
+            window.addEventListener('scroll', function() {
+                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                
+                Object.keys(scrollTracked).forEach(percent => {
+                    if (scrollPercent >= percent && !scrollTracked[percent]) {
+                        scrollTracked[percent] = true;
+                        gtag('event', 'scroll', {
+                            'event_category': 'engagement',
+                            'event_label': `scroll_${percent}_percent`,
+                            'value': 1
+                        });
+                    }
+                });
+            });
+            
+            // Track time on page
+            let timeOnPage = 0;
+            setInterval(function() {
+                timeOnPage += 10;
+                if (timeOnPage % 30000 === 0) { // Every 30 seconds
+                    gtag('event', 'page_time', {
+                        'event_category': 'engagement',
+                        'event_label': `time_${timeOnPage / 1000}_seconds`,
+                        'value': Math.round(timeOnPage / 1000)
+                    });
+                }
+            }, 10000);
+            
+            // Track referrer source
+            const referrer = document.referrer || 'direct';
+            gtag('event', 'page_view', {
+                'event_category': 'source',
+                'event_label': referrer,
+                'referrer': referrer
+            });
+            
+            // Track device type
+            const deviceType = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+            gtag('event', 'device_type', {
+                'event_category': 'device',
+                'event_label': deviceType,
+                'device_type': deviceType
+            });
+        });
+    </script>
+</body>
+</html>
