@@ -9,7 +9,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);} 
         gtag('js', new Date());
         gtag('config', 'G-XXXXXXXXXX');
     </script>
@@ -341,7 +341,7 @@
         <!-- Poster Section -->
         <div class="poster-section">
             <div class="poster-wrapper">
-                <img src="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg" alt="ShadowTR" class="poster">
+                <img src="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg" alt="ShadowTR" class="poster" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x900?text=ShadowTR';">
             </div>
         </div>
         
@@ -366,21 +366,23 @@
     </div>
     
     <script>
-        // Enhanced Analytics Tracking
+        // Enhanced Analytics Tracking (robust/failsafe)
         document.addEventListener('DOMContentLoaded', function() {
             // Track page view (Google Analytics handles this automatically)
-            
             // Track button click
             const watchBtn = document.getElementById('watchBtn');
             if (watchBtn) {
                 watchBtn.addEventListener('click', function() {
-                    // Send event to Google Analytics
-                    gtag('event', 'click', {
-                        'event_category': 'engagement',
-                        'event_label': 'watch_now_button',
-                        'value': 1
-                    });
-                    console.log('Watch Now button clicked - tracked in Google Analytics');
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'click', {
+                            'event_category': 'engagement',
+                            'event_label': 'watch_now_button',
+                            'value': 1
+                        });
+                    } else {
+                        console.log('gtag not available: watch_now_button');
+                    }
+                    console.log('Watch Now button clicked - tracked (if gtag present)');
                 });
             }
             
@@ -388,19 +390,23 @@
             const poster = document.querySelector('.poster');
             if (poster) {
                 poster.addEventListener('click', function() {
-                    gtag('event', 'click', {
-                        'event_category': 'engagement',
-                        'event_label': 'poster_clicked',
-                        'value': 1
-                    });
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'click', {
+                            'event_category': 'engagement',
+                            'event_label': 'poster_clicked',
+                            'value': 1
+                        });
+                    }
                 });
                 
                 poster.addEventListener('mouseover', function() {
-                    gtag('event', 'engagement', {
-                        'event_category': 'interaction',
-                        'event_label': 'poster_hover',
-                        'value': 1
-                    });
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'engagement', {
+                            'event_category': 'interaction',
+                            'event_label': 'poster_hover',
+                            'value': 1
+                        });
+                    }
                 });
             }
             
@@ -413,48 +419,56 @@
             };
             
             window.addEventListener('scroll', function() {
-                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                const denom = document.documentElement.scrollHeight - window.innerHeight;
+                if (denom <= 0) return; // nothing to track on non-scrollable pages
+                const scrollPercent = (window.scrollY / denom) * 100;
                 
                 Object.keys(scrollTracked).forEach(percent => {
                     if (scrollPercent >= percent && !scrollTracked[percent]) {
                         scrollTracked[percent] = true;
-                        gtag('event', 'scroll', {
-                            'event_category': 'engagement',
-                            'event_label': `scroll_${percent}_percent`,
-                            'value': 1
-                        });
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'scroll', {
+                                'event_category': 'engagement',
+                                'event_label': `scroll_${percent}_percent`,
+                                'value': 1
+                            });
+                        }
                     }
                 });
             });
             
-            // Track time on page
-            let timeOnPage = 0;
+            // Track time on page (seconds)
+            let timeOnPageSec = 0;
             setInterval(function() {
-                timeOnPage += 10;
-                if (timeOnPage % 30000 === 0) { // Every 30 seconds
+                timeOnPageSec += 1;
+                if (typeof gtag === 'function' && timeOnPageSec % 30 === 0) { // Every 30 seconds
                     gtag('event', 'page_time', {
                         'event_category': 'engagement',
-                        'event_label': `time_${timeOnPage / 1000}_seconds`,
-                        'value': Math.round(timeOnPage / 1000)
+                        'event_label': `time_${timeOnPageSec}_seconds`,
+                        'value': timeOnPageSec
                     });
                 }
-            }, 10000);
+            }, 1000);
             
             // Track referrer source
             const referrer = document.referrer || 'direct';
-            gtag('event', 'page_view', {
-                'event_category': 'source',
-                'event_label': referrer,
-                'referrer': referrer
-            });
+            if (typeof gtag === 'function') {
+                gtag('event', 'page_view', {
+                    'event_category': 'source',
+                    'event_label': referrer,
+                    'referrer': referrer
+                });
+            }
             
             // Track device type
             const deviceType = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-            gtag('event', 'device_type', {
-                'event_category': 'device',
-                'event_label': deviceType,
-                'device_type': deviceType
-            });
+            if (typeof gtag === 'function') {
+                gtag('event', 'device_type', {
+                    'event_category': 'device',
+                    'event_label': deviceType,
+                    'device_type': deviceType
+                });
+            }
         });
     </script>
 </body>
