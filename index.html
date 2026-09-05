@@ -43,7 +43,8 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 50%, #0d0d1f 100%);
+            /* Amaterasu-inspired warm background */
+            background: linear-gradient(135deg, #1a0400 0%, #3a1200 50%, #0b0300 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -52,7 +53,7 @@
             overflow: hidden;
         }
         
-        /* Animated Background */
+        /* Animated Background - warm glows */
         body::before {
             content: '';
             position: fixed;
@@ -61,17 +62,14 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(255,140,0,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,215,0,0.08) 0%, transparent 50%);
             animation: shift 15s ease-in-out infinite;
             z-index: 0;
             pointer-events: none;
         }
         
-        @keyframes shift {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 30px); }
-        }
+        @keyframes shift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 30px); } }
         
         .container {
             max-width: 800px;
@@ -86,26 +84,11 @@
         }
         
         /* Poster Section */
-        .poster-section {
-            flex: 0 1 320px;
-            animation: slideInLeft 0.8s ease-out;
-        }
-        
-        .poster-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
+        .poster-section { flex: 0 1 320px; animation: slideInLeft 0.8s ease-out; }
+        .poster-wrapper { position: relative; display: inline-block; width: 100%; }
         
         /* SVG poster styles */
-        .svg-poster {
-            width: 100%;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid rgba(0,255,255,0.12);
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
-            box-shadow: 0 0 40px rgba(0,255,255,0.12), 0 20px 40px rgba(0,0,0,0.6);
-        }
+        .svg-poster { width: 100%; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255,160,60,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18)); box-shadow: 0 0 40px rgba(255,106,0,0.10), 0 20px 40px rgba(0,0,0,0.6); }
         .svg-poster svg { display:block; width:100%; height:auto; }
 
         /* Parallax layers */
@@ -121,32 +104,32 @@
         .svg-poster { animation: float 6s ease-in-out infinite; }
         @keyframes float { 0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)} }
 
-        /* Neon title */
+        /* Amaterasu neon title */
         .neon-title { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight:700; }
         .neon-fill { fill: url(#neonGradient); }
-        .neon-glow { filter: drop-shadow(0 0 8px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(255,0,255,0.5)); }
+        .neon-glow { filter: drop-shadow(0 0 8px rgba(255,106,0,0.85)) drop-shadow(0 0 20px rgba(255,200,87,0.45)); }
 
         /* Shimmer */
         .shimmer { animation: shimmer 3s linear infinite; }
-        @keyframes shimmer { 0%{opacity:0.8}50%{opacity:1}100%{opacity:0.8} }
+        @keyframes shimmer { 0%{opacity:0.85}50%{opacity:1}100%{opacity:0.85} }
 
         /* Scanlines */
         .scanline { opacity:0.06; animation: scan 1.2s linear infinite; }
         @keyframes scan { 0%{background-position:0 0}100%{background-position:0 32px} }
 
-        /* Content Section (unchanged) */
+        /* Content Section (unchanged layout) */
         .content-section { flex: 1; min-width: 280px; animation: slideInRight 0.8s ease-out; }
 
-        /* existing styles below (unchanged) */
-        h1 { color: #00ffff; font-size: 3em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,255,255,0.8), 0 0 40px rgba(255,0,128,0.5), 2px 2px 4px rgba(0,0,0,0.8); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; line-height: 1.2; animation: fadeInUp 0.8s ease-out 0.2s both; }
-        .title-accent { display: inline-block; background: linear-gradient(135deg, #00ffff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .divider { height: 3px; width: 80px; background: linear-gradient(90deg, #00ffff, #ff00ff); margin: 20px 0; border-radius: 2px; animation: expandWidth 0.8s ease-out 0.3s both; }
-        .subtitle { color: #b0b0ff; font-size: 1.2em; margin-bottom: 25px; line-height: 1.6; animation: fadeInUp 0.8s ease-out 0.4s both; font-weight: 300; }
+        /* Replace cyan/magenta accents with warm Amaterasu palette */
+        h1 { color: #ffd27f; font-size: 3em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,160,60,0.8), 0 0 40px rgba(255,100,30,0.45), 2px 2px 4px rgba(0,0,0,0.8); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; line-height: 1.2; animation: fadeInUp 0.8s ease-out 0.2s both; }
+        .title-accent { display: inline-block; background: linear-gradient(135deg, #ff6a00, #ffd27f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .divider { height: 3px; width: 80px; background: linear-gradient(90deg, #ff6a00, #ffd27f); margin: 20px 0; border-radius: 2px; animation: expandWidth 0.8s ease-out 0.3s both; }
+        .subtitle { color: #f6e6d0; font-size: 1.2em; margin-bottom: 25px; line-height: 1.6; animation: fadeInUp 0.8s ease-out 0.4s both; font-weight: 300; }
         .features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; animation: fadeInUp 0.8s ease-out 0.5s both; }
-        .feature { color: #d0d0ff; font-size: 0.95em; display: flex; align-items: center; gap: 10px; }
-        .feature::before { content: '▸'; color: #00ffff; font-weight: bold; font-size: 1.2em; }
-        .cta-button { display: inline-block; padding: 18px 50px; background: linear-gradient(135deg, #00ffff 0%, #00ccff 100%); color: #000; text-decoration: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); box-shadow: 0 0 30px rgba(0,255,255,0.6), 0 0 60px rgba(0,200,255,0.3), 0 10px 30px rgba(0,0,0,0.4); animation: fadeInUp 0.8s ease-out 0.6s both; border: 2px solid transparent; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .cta-button:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 50px rgba(0,255,255,0.8), 0 0 100px rgba(0,200,255,0.5), 0 15px 40px rgba(0,0,0,0.6); background: linear-gradient(135deg, #00ffff, #ff00ff); }
+        .feature { color: #f0e7d9; font-size: 0.95em; display: flex; align-items: center; gap: 10px; }
+        .feature::before { content: '▸'; color: #ff6a00; font-weight: bold; font-size: 1.2em; }
+        .cta-button { display: inline-block; padding: 18px 50px; background: linear-gradient(135deg, #ff6a00 0%, #ff9a00 100%); color: #000; text-decoration: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); box-shadow: 0 0 30px rgba(255,106,0,0.6), 0 0 60px rgba(255,160,60,0.3), 0 10px 30px rgba(0,0,0,0.4); animation: fadeInUp 0.8s ease-out 0.6s both; border: 2px solid transparent; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .cta-button:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 50px rgba(255,106,0,0.85), 0 0 100px rgba(255,160,60,0.5), 0 15px 40px rgba(0,0,0,0.6); background: linear-gradient(135deg, #ff6a00, #ffd27f); }
 
         /* Animations continued */
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
@@ -168,18 +151,18 @@
         <!-- Poster Section -->
         <div class="poster-section">
             <div class="poster-wrapper">
-                <!-- Inline animated SVG poster (neon anime-style, parallax float) -->
+                <!-- Inline animated SVG poster (Amaterasu warm palette, parallax float) -->
                 <div class="svg-poster" role="img" aria-label="ShadowTR poster">
                     <svg viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="false">
                         <defs>
                             <linearGradient id="bgGrad" x1="0" x2="0" y1="0" y2="1">
-                                <stop offset="0%" stop-color="#0f0f1e" />
-                                <stop offset="60%" stop-color="#12122b" />
-                                <stop offset="100%" stop-color="#06060a" />
+                                <stop offset="0%" stop-color="#2b0600" />
+                                <stop offset="60%" stop-color="#3a1200" />
+                                <stop offset="100%" stop-color="#120200" />
                             </linearGradient>
                             <linearGradient id="neonGradient" x1="0" x2="1">
-                                <stop offset="0%" stop-color="#00ffff" />
-                                <stop offset="100%" stop-color="#ff00ff" />
+                                <stop offset="0%" stop-color="#ff6a00" />
+                                <stop offset="100%" stop-color="#ffd27f" />
                             </linearGradient>
                             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                                 <feGaussianBlur stdDeviation="6" result="coloredBlur" />
@@ -196,16 +179,16 @@
                         <!-- Background layer -->
                         <g class="layer-bg">
                             <rect x="0" y="0" width="600" height="900" fill="url(#bgGrad)" />
-                            <ellipse cx="120" cy="180" rx="220" ry="120" fill="#ff00ff" opacity="0.04" />
-                            <ellipse cx="500" cy="760" rx="240" ry="140" fill="#00ffff" opacity="0.04" />
+                            <ellipse cx="120" cy="180" rx="220" ry="120" fill="#ff9a00" opacity="0.05" />
+                            <ellipse cx="500" cy="760" rx="240" ry="140" fill="#ffd27f" opacity="0.035" />
                         </g>
 
                         <!-- Mid haze / shapes -->
                         <g class="layer-mid" style="mix-blend-mode:screen">
                             <g opacity="0.85">
                                 <rect x="-50" y="200" width="700" height="360" fill="url(#neonGradient)" opacity="0.03" />
-                                <circle cx="420" cy="260" r="80" fill="#00ffff" opacity="0.06" />
-                                <circle cx="180" cy="420" r="120" fill="#ff00ff" opacity="0.05" />
+                                <circle cx="420" cy="260" r="80" fill="#ff6a00" opacity="0.06" />
+                                <circle cx="180" cy="420" r="120" fill="#ffd27f" opacity="0.05" />
                             </g>
                         </g>
 
@@ -216,16 +199,16 @@
 
                             <!-- simple character-like shape (abstract) -->
                             <g transform="translate(120,160)">
-                                <path d="M90 40 C70 20, 40 10, 20 60 C10 90, 30 120, 40 150 C60 200, 90 220, 140 220 C200 220, 220 180, 240 130 C255 95, 220 60, 190 50 C160 40,120 55,90 40z" fill="#0b0b12" opacity="0.9" />
-                                <path d="M120 80 C130 68, 150 64, 160 90" stroke="#00ffff" stroke-width="2" fill="none" opacity="0.7"/>
-                                <path d="M100 140 C120 160, 160 160, 180 140" stroke="#ff00ff" stroke-width="2" fill="none" opacity="0.6"/>
+                                <path d="M90 40 C70 20, 40 10, 20 60 C10 90, 30 120, 40 150 C60 200, 90 220, 140 220 C200 220, 220 180, 240 130 C255 95, 220 60, 190 50 C160 40,120 55,90 40z" fill="#0b0503" opacity="0.92" />
+                                <path d="M120 80 C130 68, 150 64, 160 90" stroke="#ff9a00" stroke-width="2" fill="none" opacity="0.75"/>
+                                <path d="M100 140 C120 160, 160 160, 180 140" stroke="#ffd27f" stroke-width="2" fill="none" opacity="0.65"/>
                             </g>
                         </g>
 
                         <!-- Title / logo -->
                         <g transform="translate(40,680)" class="shimmer">
                             <text x="0" y="0" font-size="72" class="neon-title neon-fill neon-glow" style="letter-spacing:2px;">Shadow</text>
-                            <text x="0" y="72" font-size="56" fill="#b0b0ff" style="letter-spacing:3px;">TR</text>
+                            <text x="0" y="72" font-size="56" fill="#f6e6d0" style="letter-spacing:3px;">TR</text>
                         </g>
 
                         <!-- CTA badge -->
