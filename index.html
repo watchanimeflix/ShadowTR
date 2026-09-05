@@ -17,407 +17,65 @@
     <!-- Open Graph Meta Tags for Social Media Preview -->
     <meta property="og:title" content="ShadowTR">
     <meta property="og:description" content="Experience the ultimate anime adventure on Trimz.tv">
-    <meta property="og:image" content="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg">
+    <meta property="og:image" content="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster2.jpg">
     <meta property="og:url" content="https://trimz.tv/u/sht">
     <meta property="og:type" content="website">
     <meta property="og:image:width" content="800">
     <meta property="og:image:height" content="1000">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 50%, #0d0d1f 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
+        * { margin:0; padding:0; box-sizing:border-box }
+        html,body{width:100%;height:100%}
+        body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:linear-gradient(180deg,#00040a 0%, #00121a 60%, #00030a 100%); display:flex;justify-content:center;align-items:center;padding:20px;position:relative;overflow:hidden}
 
-        /* Loading overlay */
-        #loadingOverlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(10,6,8,0.75), rgba(10,6,8,0.85));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            color: #ffd27f;
-            flex-direction: column;
-            gap: 12px;
-            transition: opacity 300ms ease-in-out, visibility 300ms;
-        }
-        #loadingOverlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .loader {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            border: 6px solid rgba(255,210,127,0.14);
-            border-top-color: #ff7a1a;
-            animation: spin 1s linear infinite;
-            box-shadow: 0 0 30px rgba(255,120,20,0.18);
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loading-text { font-weight:700; letter-spacing:0.6px; color:#ffd27f; }
+        /* cyan glow background to match the eyes */
+        body::before{content:'';position:fixed;inset:0;background: radial-gradient(circle at 50% 22%, rgba(0,220,255,0.12) 0%, transparent 20%), radial-gradient(circle at 75% 75%, rgba(0,180,255,0.06) 0%, transparent 30%);pointer-events:none;z-index:0}
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-            flex-wrap: wrap;
-        }
-        
-        /* Poster Section */
-        .poster-section {
-            flex: 0 1 320px;
-            animation: slideInLeft 0.8s ease-out;
-        }
-        
-        .poster-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-        
-        .poster {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 
-                0 0 40px rgba(0, 255, 255, 0.4),
-                0 0 80px rgba(255, 0, 128, 0.3),
-                0 20px 60px rgba(0, 0, 0, 0.8);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            display: block;
-        }
-        
-        .poster:hover {
-            transform: scale(1.08) translateY(-10px);
-            box-shadow: 
-                0 0 60px rgba(0, 255, 255, 0.8),
-                0 0 120px rgba(255, 0, 128, 0.6),
-                0 30px 80px rgba(0, 0, 0, 0.9);
-            border-color: rgba(0, 255, 255, 0.8);
-        }
-        
-        /* Content Section */
-        .content-section {
-            flex: 1;
-            min-width: 280px;
-            animation: slideInRight 0.8s ease-out;
-        }
-        
-        h1 {
-            color: #00ffff;
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.8),
-                0 0 40px rgba(255, 0, 128, 0.5),
-                2px 2px 4px rgba(0, 0, 0, 0.8);
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            line-height: 1.2;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-        
-        .title-accent {
-            display: inline-block;
-            background: linear-gradient(135deg, #00ffff, #ff00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .divider {
-            height: 3px;
-            width: 80px;
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
-            margin: 20px 0;
-            border-radius: 2px;
-            animation: expandWidth 0.8s ease-out 0.3s both;
-        }
-        
-        .subtitle {
-            color: #b0b0ff;
-            font-size: 1.2em;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-            font-weight: 300;
-        }
-        
-        .features {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease-out 0.5s both;
-        }
-        
-        .feature {
-            color: #d0d0ff;
-            font-size: 0.95em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .feature::before {
-            content: '▸';
-            color: #00ffff;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 18px 50px;
-            background: linear-gradient(135deg, #00ffff 0%, #00ccff 100%);
-            color: #000;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 
-                0 0 30px rgba(0, 255, 255, 0.6),
-                0 0 60px rgba(0, 200, 255, 0.3),
-                0 10px 30px rgba(0, 0, 0, 0.4);
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-            border: 2px solid transparent;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 0 50px rgba(0, 255, 255, 0.8),
-                0 0 100px rgba(0, 200, 255, 0.5),
-                0 15px 40px rgba(0, 0, 0, 0.6);
-            background: linear-gradient(135deg, #00ffff, #ff00ff);
-        }
-        
-        .cta-button:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-        
-        /* Animations */
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes expandWidth {
-            from {
-                opacity: 0;
-                width: 0;
-            }
-            to {
-                opacity: 1;
-                width: 80px;
-            }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .container {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .poster-section {
-                flex: 0 1 300px;
-            }
-            
-            h1 {
-                font-size: 2.5em;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                gap: 20px;
-            }
-            
-            .poster-section {
-                flex: 0 1 250px;
-            }
-            
-            h1 {
-                font-size: 1.8em;
-                letter-spacing: 1px;
-            }
-            
-            .subtitle {
-                font-size: 1em;
-            }
-            
-            .feature {
-                font-size: 0.9em;
-            }
-            
-            .cta-button {
-                padding: 16px 40px;
-                font-size: 1em;
-            }
-            
-            .divider {
-                width: 60px;
-            }
-        }
-        
-        /* Loading State (legacy) */
-        .loading {
-            opacity: 0.7;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
-        }
+        .container{max-width:900px;width:100%;display:flex;gap:28px;align-items:center;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
+
+        /* Featured image above the title */
+        .featured-wrap{width:100%;display:flex;justify-content:center;margin-bottom:12px}
+        .featured-img{max-width:360px;width:100%;height:auto;border-radius:10px;box-shadow:0 20px 50px rgba(0,150,200,0.12);border:2px solid rgba(0,200,255,0.06);}
+
+        .content-section{flex:1;min-width:280px;animation:slideInRight .8s ease-out; text-align:center}
+        h1{color:#bff9ff;font-size:48px;margin-top:6px;margin-bottom:6px;font-weight:900;text-shadow:0 8px 40px rgba(0,200,255,0.08)}
+        .title-accent{display:inline-block;background:linear-gradient(135deg,#00f0ff,#80dfff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .subtitle{color:rgba(200,245,255,0.9);font-size:1.05em;margin-bottom:18px}
+        .cta-button{display:inline-block;padding:14px 40px;border-radius:36px;background:linear-gradient(90deg,#00f0ff,#66e5ff);color:#001; font-weight:800;text-decoration:none}
+
+        /* responsive */
+        @media (max-width:700px){.featured-img{max-width:260px}.title-accent{font-size:28px}h1{font-size:32px}}
+
+        /* loading overlay kept from previous changes */
+        #loadingOverlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.7),rgba(0,0,0,0.85));display:flex;align-items:center;justify-content:center;z-index:9999;color:#00f0ff;flex-direction:column;gap:10px}
+        #loadingOverlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+        .loader{width:56px;height:56px;border-radius:50%;border:6px solid rgba(0,240,255,0.12);border-top-color:#00f0ff;animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
     </style>
 </head>
 <body>
     <!-- Loading overlay -->
-    <div id="loadingOverlay">
-        <div class="loader" aria-hidden="true"></div>
-        <div class="loading-text">Loading ShadowTR…</div>
-    </div>
+    <div id="loadingOverlay"><div class="loader" aria-hidden="true"></div><div class="loading-text">Loading ShadowTR…</div></div>
 
     <div class="container">
-        <!-- Poster Section -->
-        <div class="poster-section">
-            <div class="poster-wrapper">
-                <img src="https://raw.githubusercontent.com/watchanimeflix/ShadowTR/main/poster.jpg" alt="ShadowTR" class="poster" id="posterImg"/>
-            </div>
-        </div>
-        
-        <!-- Content Section -->
         <div class="content-section">
-            <h1><span class="title-accent">Shadow</span><br>TR</h1>
-            
-            <div class="divider"></div>
-            
-            <p class="subtitle">
-                Experience an epic anime adventure. A story of power, mystery, and destiny in a neon-lit future.
-            </p>
-            
-            <div class="features">
-                <div class="feature">Stunning visuals and world-building</div>
-                <div class="feature">Deep character development and compelling storyline</div>
-                <div class="feature">High-octane action scenes and emotional depth</div>
+            <!-- Insert the user-provided image above the title -->
+            <div class="featured-wrap">
+                <img src="/poster2.jpg" alt="Featured" class="featured-img" id="featuredImg">
             </div>
-            
-            <!-- Only this button routes to Trimz -->
-            <a href="https://trimz.tv/u/sht" class="cta-button" id="watchBtn">Watch Now on Trimz.tv</a>
+
+            <h1><span class="title-accent">Shadow</span> TR</h1>
+            <div class="subtitle">Experience an epic anime adventure — click Watch Now to go to Trimz.</div>
+            <a href="https://trimz.tv/u/sht" class="cta-button" id="watchBtn">Watch Now</a>
         </div>
     </div>
-    
+
     <script>
-        // Show overlay until the page fully loads (or timeout)
-        (function(){
-            const overlay = document.getElementById('loadingOverlay');
-            function hideOverlay() {
-                if(!overlay) return;
-                overlay.classList.add('hidden');
-            }
-            // Hide when window loads
-            window.addEventListener('load', hideOverlay);
-            // Fallback: hide after 2.5s
-            setTimeout(hideOverlay, 2500);
-        })();
+        // hide overlay on load
+        (function(){const overlay=document.getElementById('loadingOverlay');function hide(){overlay.classList.add('hidden')}window.addEventListener('load',hide);setTimeout(hide,2500);})();
 
-        // Ensure only the primary Watch Now button routes to Trimz (block any other trimz links)
-        document.addEventListener('click', function(e){
-            const anchor = e.target.closest && e.target.closest('a');
-            if(!anchor) return;
-            const href = anchor.getAttribute('href') || '';
-            if(href.includes('trimz.tv')){
-                // allow if it's the main button
-                if(anchor.id !== 'watchBtn'){
-                    e.preventDefault();
-                    e.stopPropagation();
-                    // Optional: small visual feedback
-                    anchor.classList.add('disabled-route');
-                    setTimeout(()=>anchor.classList.remove('disabled-route'), 900);
-                    console.log('Navigation to Trimz blocked: only the Watch Now button is allowed.');
-                }
-            }
-        }, true);
-
-        // Defensive analytics tracking for the Watch button
-        document.addEventListener('DOMContentLoaded', function(){
-            const watchBtn = document.getElementById('watchBtn');
-            if(watchBtn){
-                watchBtn.addEventListener('click', function(){
-                    if(typeof gtag === 'function'){
-                        gtag('event','click',{event_category:'engagement',event_label:'watch_now_button',value:1});
-                    }
-                });
-            }
-            // Remove any previously added click handlers that might redirect other elements (safe-guard)
-            const possibleSelectors = ['.client-placeholder', '.ad', '.svg-poster', '#posterImg'];
-            possibleSelectors.forEach(sel => {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.replaceWith(el.cloneNode(true)); // removes event listeners
-                });
-            });
-        });
+        // Ensure only watchBtn routes
+        document.addEventListener('click', function(e){const a=e.target.closest && e.target.closest('a'); if(!a) return; const href=a.getAttribute('href')||''; if(href.includes('trimz.tv') && a.id!=='watchBtn'){e.preventDefault();e.stopPropagation();console.log('Blocked extra trimz link');}} , true);
     </script>
 </body>
 </html>
